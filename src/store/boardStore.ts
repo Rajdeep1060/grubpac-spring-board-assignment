@@ -122,13 +122,12 @@ export const useBoardStore = create<BoardState>()(
         if (taskIndex === -1) return;
 
         const targetTask = state.tasks[taskIndex];
-        const isStatusChange = targetTask.status !== newStatus;
         const isNowDone = newStatus === 'done';
 
         const updatedTask: Task = {
           ...targetTask,
           status: newStatus,
-          completedAt: isNowDone ? new Date().toISOString() : newStatus !== 'done' ? null : targetTask.completedAt,
+          completedAt: isNowDone ? new Date().toISOString() : null,
           updatedAt: new Date().toISOString(),
         };
 
