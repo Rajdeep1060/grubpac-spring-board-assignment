@@ -7,10 +7,69 @@ export interface BoardMockData {
   comments: Comment[];
 }
 
+export const fallbackMockData: BoardMockData = {
+  users: [
+    { id: 1, name: 'Emily Johnson', email: 'emily.johnson@example.com', avatar: 'https://i.pravatar.cc/150?img=47', role: 'Frontend Lead' },
+    { id: 2, name: 'Michael Williams', email: 'michael.williams@example.com', avatar: 'https://i.pravatar.cc/150?img=12', role: 'Full Stack Dev' },
+    { id: 3, name: 'Sarah Brown', email: 'sarah.brown@example.com', avatar: 'https://i.pravatar.cc/150?img=32', role: 'UI/UX Designer' },
+    { id: 4, name: 'David Miller', email: 'david.miller@example.com', avatar: 'https://i.pravatar.cc/150?img=15', role: 'Backend Engineer' },
+    { id: 5, name: 'Jessica Davis', email: 'jessica.davis@example.com', avatar: 'https://i.pravatar.cc/150?img=44', role: 'QA Engineer' },
+    { id: 6, name: 'Daniel Wilson', email: 'daniel.wilson@example.com', avatar: 'https://i.pravatar.cc/150?img=11', role: 'DevOps Lead' }
+  ],
+  sprints: [
+    { id: 1, name: 'Sprint 1', startDate: '2026-07-20', endDate: '2026-07-31', goal: 'Initial Setup & Auth Flow', status: 'completed' },
+    { id: 2, name: 'Sprint 2', startDate: '2026-08-03', endDate: '2026-08-14', goal: 'Component Library & Interceptor', status: 'completed' },
+    { id: 3, name: 'Sprint 3', startDate: '2026-08-17', endDate: '2026-08-28', goal: 'Kanban Board & Recharts Analytics', status: 'active' }
+  ],
+  tasks: [
+    { id: 1, title: 'Implement authentication flow', description: 'Implement login, logout, protected routes and session persistence.', status: 'done', priority: 'high', assigneeId: 1, dueDate: '2026-08-18', sprintId: 3, order: 1, createdAt: '2026-08-15T09:30:00Z', completedAt: '2026-08-18T16:20:00Z', updatedAt: '2026-08-18T16:20:00Z' },
+    { id: 2, title: 'Build Kanban board', description: 'Create the sprint board with four columns and task management.', status: 'in-progress', priority: 'high', assigneeId: 2, dueDate: '2026-08-22', sprintId: 3, order: 1, createdAt: '2026-08-15T10:00:00Z', completedAt: null, updatedAt: '2026-08-19T11:10:00Z' },
+    { id: 3, title: 'Create analytics dashboard', description: 'Build responsive charts for sprint velocity, task status, priority breakdown and completion trend.', status: 'review', priority: 'medium', assigneeId: 3, dueDate: '2026-08-23', sprintId: 3, order: 1, createdAt: '2026-08-16T08:45:00Z', completedAt: null, updatedAt: '2026-08-19T13:30:00Z' },
+    { id: 4, title: 'Design notification system', description: 'Implement notification polling, unread state and notification persistence.', status: 'backlog', priority: 'medium', assigneeId: 4, dueDate: '2026-08-25', sprintId: 3, order: 1, createdAt: '2026-08-16T09:20:00Z', completedAt: null, updatedAt: '2026-08-16T09:20:00Z' },
+    { id: 5, title: 'Create reusable Button component', description: 'Build accessible button variants and states using Tailwind CSS.', status: 'done', priority: 'low', assigneeId: 5, dueDate: '2026-08-19', sprintId: 3, order: 2, createdAt: '2026-08-15T12:00:00Z', completedAt: '2026-08-19T15:45:00Z', updatedAt: '2026-08-19T15:45:00Z' },
+    { id: 6, title: 'Implement task drawer', description: 'Create a side drawer for viewing and editing task details.', status: 'in-progress', priority: 'medium', assigneeId: 1, dueDate: '2026-08-24', sprintId: 3, order: 2, createdAt: '2026-08-17T10:30:00Z', completedAt: null, updatedAt: '2026-08-19T09:00:00Z' },
+    { id: 7, title: 'Add task filtering', description: 'Allow users to filter tasks by priority and assignee.', status: 'backlog', priority: 'low', assigneeId: 2, dueDate: '2026-08-27', sprintId: 3, order: 2, createdAt: '2026-08-17T11:00:00Z', completedAt: null, updatedAt: '2026-08-17T11:00:00Z' },
+    { id: 8, title: 'Improve mobile board layout', description: 'Ensure the Kanban board works correctly on mobile devices.', status: 'review', priority: 'high', assigneeId: 3, dueDate: '2026-08-21', sprintId: 3, order: 2, createdAt: '2026-08-17T14:00:00Z', completedAt: null, updatedAt: '2026-08-19T17:20:00Z' },
+    { id: 9, title: 'Add loading states', description: 'Add reusable skeleton and loading components throughout the application.', status: 'done', priority: 'low', assigneeId: 4, dueDate: '2026-08-18', sprintId: 3, order: 3, createdAt: '2026-08-16T13:15:00Z', completedAt: '2026-08-18T12:10:00Z', updatedAt: '2026-08-18T12:10:00Z' },
+    { id: 10, title: 'Write board store tests', description: 'Add unit tests for adding, moving and deleting tasks.', status: 'in-progress', priority: 'high', assigneeId: 5, dueDate: '2026-08-22', sprintId: 3, order: 3, createdAt: '2026-08-18T08:00:00Z', completedAt: null, updatedAt: '2026-08-19T10:30:00Z' },
+    { id: 11, title: 'Configure route code splitting', description: 'Lazy load application routes using React.lazy and Suspense.', status: 'backlog', priority: 'medium', assigneeId: 1, dueDate: '2026-08-26', sprintId: 3, order: 3, createdAt: '2026-08-18T09:15:00Z', completedAt: null, updatedAt: '2026-08-18T09:15:00Z' },
+    { id: 12, title: 'Accessibility audit', description: 'Review keyboard navigation, focus management and form accessibility.', status: 'review', priority: 'high', assigneeId: 4, dueDate: '2026-08-24', sprintId: 3, order: 3, createdAt: '2026-08-18T11:30:00Z', completedAt: null, updatedAt: '2026-08-19T14:00:00Z' },
+    { id: 13, title: 'Implement toast system', description: 'Create a reusable toast notification component and useToast hook.', status: 'done', priority: 'medium', assigneeId: 6, dueDate: '2026-08-18', sprintId: 3, order: 4, createdAt: '2026-08-15T13:00:00Z', completedAt: '2026-08-18T15:00:00Z', updatedAt: '2026-08-18T15:00:00Z' },
+    { id: 14, title: 'Create task modal', description: 'Build the form for creating a new sprint task.', status: 'done', priority: 'high', assigneeId: 2, dueDate: '2026-08-19', sprintId: 3, order: 5, createdAt: '2026-08-16T10:00:00Z', completedAt: '2026-08-19T11:30:00Z', updatedAt: '2026-08-19T11:30:00Z' },
+    { id: 15, title: 'Implement delete confirmation', description: 'Add confirmation flow before permanently deleting a task.', status: 'done', priority: 'medium', assigneeId: 3, dueDate: '2026-08-19', sprintId: 3, order: 6, createdAt: '2026-08-16T11:00:00Z', completedAt: '2026-08-19T14:20:00Z', updatedAt: '2026-08-19T14:20:00Z' },
+    { id: 16, title: 'Implement theme switching', description: 'Add persistent light and dark theme support.', status: 'in-progress', priority: 'medium', assigneeId: 6, dueDate: '2026-08-23', sprintId: 3, order: 4, createdAt: '2026-08-18T12:00:00Z', completedAt: null, updatedAt: '2026-08-19T16:00:00Z' },
+    { id: 17, title: 'Build DataTable component', description: 'Create a reusable and responsive data table component.', status: 'review', priority: 'medium', assigneeId: 5, dueDate: '2026-08-24', sprintId: 3, order: 4, createdAt: '2026-08-17T08:30:00Z', completedAt: null, updatedAt: '2026-08-19T12:00:00Z' },
+    { id: 18, title: 'Handle API errors', description: 'Create consistent API error handling and user-facing error states.', status: 'in-progress', priority: 'high', assigneeId: 4, dueDate: '2026-08-22', sprintId: 3, order: 5, createdAt: '2026-08-18T10:00:00Z', completedAt: null, updatedAt: '2026-08-19T09:40:00Z' },
+    { id: 19, title: 'Implement authentication interceptor', description: 'Attach bearer tokens and retry failed requests after token refresh.', status: 'done', priority: 'high', assigneeId: 1, dueDate: '2026-08-17', sprintId: 2, order: 1, createdAt: '2026-08-05T09:00:00Z', completedAt: '2026-08-13T16:00:00Z', updatedAt: '2026-08-13T16:00:00Z' },
+    { id: 20, title: 'Implement protected routes', description: 'Prevent unauthenticated users from accessing application routes.', status: 'done', priority: 'high', assigneeId: 2, dueDate: '2026-08-12', sprintId: 2, order: 2, createdAt: '2026-08-04T10:00:00Z', completedAt: '2026-08-12T14:00:00Z', updatedAt: '2026-08-12T14:00:00Z' },
+    { id: 21, title: 'Create responsive navigation', description: 'Build responsive navigation for desktop and mobile layouts.', status: 'done', priority: 'medium', assigneeId: 3, dueDate: '2026-08-11', sprintId: 2, order: 3, createdAt: '2026-08-04T11:00:00Z', completedAt: '2026-08-11T15:00:00Z', updatedAt: '2026-08-11T15:00:00Z' },
+    { id: 22, title: 'Create skeleton components', description: 'Build reusable loading and skeleton components.', status: 'done', priority: 'low', assigneeId: 5, dueDate: '2026-08-10', sprintId: 2, order: 4, createdAt: '2026-08-03T12:00:00Z', completedAt: '2026-08-10T11:00:00Z', updatedAt: '2026-08-10T11:00:00Z' },
+    { id: 23, title: 'Setup TanStack Query', description: 'Configure query client, caching and query defaults.', status: 'done', priority: 'high', assigneeId: 6, dueDate: '2026-08-08', sprintId: 2, order: 5, createdAt: '2026-08-03T09:00:00Z', completedAt: '2026-08-08T13:00:00Z', updatedAt: '2026-08-08T13:00:00Z' },
+    { id: 24, title: 'Setup Zustand store', description: 'Create application-level Zustand stores and persistence.', status: 'done', priority: 'high', assigneeId: 1, dueDate: '2026-08-07', sprintId: 2, order: 6, createdAt: '2026-08-03T10:00:00Z', completedAt: '2026-08-07T16:00:00Z', updatedAt: '2026-08-07T16:00:00Z' },
+    { id: 25, title: 'Create project README', description: 'Document setup, architecture, APIs and technical decisions.', status: 'done', priority: 'low', assigneeId: 2, dueDate: '2026-08-06', sprintId: 2, order: 7, createdAt: '2026-08-03T13:00:00Z', completedAt: '2026-08-06T15:00:00Z', updatedAt: '2026-08-06T15:00:00Z' },
+    { id: 26, title: 'Initial UI wireframe', description: 'Create initial application layout and dashboard structure.', status: 'done', priority: 'medium', assigneeId: 3, dueDate: '2026-07-28', sprintId: 1, order: 1, createdAt: '2026-07-20T09:00:00Z', completedAt: '2026-07-28T14:00:00Z', updatedAt: '2026-07-28T14:00:00Z' },
+    { id: 27, title: 'Setup Vite project', description: 'Configure Vite, React and TypeScript strict mode.', status: 'done', priority: 'high', assigneeId: 4, dueDate: '2026-07-23', sprintId: 1, order: 2, createdAt: '2026-07-20T10:00:00Z', completedAt: '2026-07-23T12:00:00Z', updatedAt: '2026-07-23T12:00:00Z' },
+    { id: 28, title: 'Configure Tailwind CSS', description: 'Configure Tailwind and establish the base design tokens.', status: 'done', priority: 'medium', assigneeId: 5, dueDate: '2026-07-24', sprintId: 1, order: 3, createdAt: '2026-07-20T11:00:00Z', completedAt: '2026-07-24T13:00:00Z', updatedAt: '2026-07-24T13:00:00Z' },
+    { id: 29, title: 'Configure React Router', description: 'Create public and protected application routes.', status: 'done', priority: 'high', assigneeId: 6, dueDate: '2026-07-25', sprintId: 1, order: 4, createdAt: '2026-07-21T09:00:00Z', completedAt: '2026-07-25T15:00:00Z', updatedAt: '2026-07-25T15:00:00Z' },
+    { id: 30, title: 'Create initial component system', description: 'Establish reusable form, button, modal and feedback components.', status: 'done', priority: 'medium', assigneeId: 1, dueDate: '2026-07-30', sprintId: 1, order: 5, createdAt: '2026-07-22T09:00:00Z', completedAt: '2026-07-30T16:00:00Z', updatedAt: '2026-07-30T16:00:00Z' }
+  ],
+  comments: [
+    { id: 1, taskId: 2, authorId: 1, message: 'The basic board structure is ready. Cross-column drag and drop still needs to be finalized.', createdAt: '2026-08-19T10:20:00Z' },
+    { id: 2, taskId: 2, authorId: 2, message: 'I will complete the drag-and-drop interaction today.', createdAt: '2026-08-19T11:10:00Z' },
+    { id: 3, taskId: 3, authorId: 3, message: 'Charts are responsive. Mobile layout needs final verification.', createdAt: '2026-08-19T13:30:00Z' },
+    { id: 4, taskId: 8, authorId: 3, message: 'Mobile board layout is ready for review.', createdAt: '2026-08-19T17:20:00Z' },
+    { id: 5, taskId: 18, authorId: 4, message: 'Error handling should cover both API and unexpected application errors.', createdAt: '2026-08-19T09:40:00Z' }
+  ]
+};
+
 export async function fetchBoardMockData(): Promise<BoardMockData> {
-  const res = await fetch('/mock-data.json');
-  if (!res.ok) {
-    throw new Error(`Failed to fetch mock data: ${res.statusText}`);
+  try {
+    const res = await fetch('/mock-data.json');
+    if (!res.ok) {
+      return fallbackMockData;
+    }
+    return await res.json();
+  } catch {
+    return fallbackMockData;
   }
-  return await res.json();
 }

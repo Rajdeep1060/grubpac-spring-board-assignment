@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Task, User, Sprint, Comment, TaskStatus, TaskPriority } from '../types';
+import { fallbackMockData } from '../services/boardService';
 
 interface HistoryState {
   tasks: Task[];
@@ -45,10 +46,10 @@ interface BoardState {
 export const useBoardStore = create<BoardState>()(
   persist(
     (set, get) => ({
-      tasks: [],
-      users: [],
-      sprints: [],
-      comments: [],
+      tasks: fallbackMockData.tasks,
+      users: fallbackMockData.users,
+      sprints: fallbackMockData.sprints,
+      comments: fallbackMockData.comments,
       selectedSprintId: 3,
       selectedTaskId: null,
       filterPriority: 'all',
@@ -60,18 +61,13 @@ export const useBoardStore = create<BoardState>()(
       setIsNewTaskModalOpen: (open: boolean) => set({ isNewTaskModalOpen: open }),
 
       initializeData: ({ tasks, users, sprints, comments }) => {
-        const state = get();
-        if (state.tasks.length === 0) {
-          set({
-            tasks,
-            users,
-            sprints,
-            comments,
-            selectedSprintId: sprints[sprints.length - 1]?.id || 3,
-          });
-        } else {
-          set({ users, sprints });
-        }
+        set({
+          tasks: tasks && tasks.length > 0 ? tasks : fallbackMockData.tasks,
+          users: users && users.length > 0 ? users : fallbackMockData.users,
+          sprints: sprints && sprints.length > 0 ? sprints : fallbackMockData.sprints,
+          comments: comments && comments.length > 0 ? comments : fallbackMockData.comments,
+          selectedSprintId: (sprints && sprints[sprints.length - 1]?.id) || 3,
+        });
       },
 
       setSelectedSprintId: (id) => set({ selectedSprintId: id }),
@@ -188,7 +184,16 @@ export const useBoardStore = create<BoardState>()(
         return true;
       },
 
-      resetBoard: () => set({ tasks: [], history: [], selectedTaskId: null }),
+      resetBoard: () =>
+        set({
+          tasks: [],
+          sprints: [],
+          users: [],
+          comments: [],
+          history: [],
+          selectedTaskId: null,
+          selectedSprintId: 3,
+        }),
     }),
     {
       name: 'sprintdesk-board-storage',
@@ -196,6 +201,8 @@ export const useBoardStore = create<BoardState>()(
         tasks: state.tasks,
         selectedSprintId: state.selectedSprintId,
         comments: state.comments,
+        sprints: state.sprints,
+        users: state.users,
       }),
     }
   )
