@@ -6,6 +6,7 @@ export interface User {
   name: string;
   avatar: string;
   role: string;
+  email?: string;
 }
 
 export interface AuthUser {
@@ -23,8 +24,8 @@ export interface Sprint {
   name: string;
   startDate: string;
   endDate: string;
-  goal: string;
-  status: 'active' | 'completed' | 'planned';
+  goal?: string;
+  status?: 'active' | 'completed' | 'planned';
 }
 
 export interface Task {
