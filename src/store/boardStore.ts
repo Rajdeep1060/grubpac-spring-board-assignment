@@ -116,29 +116,40 @@ export const useBoardStore = create<BoardState>()(
         });
       },
 
-      moveTask: (taskId, newStatus, _newIndex) => {
+      moveTask: (taskId, newStatus, newIndex) => {
         const state = get();
-        const targetTask = state.tasks.find((t) => t.id === taskId);
-        if (!targetTask) return;
+        const taskIndex = state.tasks.findIndex((t) => t.id === taskId);
+        if (taskIndex === -1) return;
 
-        if (targetTask.status === newStatus) return;
-
+        const targetTask = state.tasks[taskIndex];
+        const isStatusChange = targetTask.status !== newStatus;
         const isNowDone = newStatus === 'done';
-        const updatedTasks = state.tasks.map((task) => {
-          if (task.id === taskId) {
-            return {
-              ...task,
-              status: newStatus,
-              completedAt: isNowDone ? new Date().toISOString() : null,
-              updatedAt: new Date().toISOString(),
-            };
-          }
-          return task;
-        });
+
+        const updatedTask: Task = {
+          ...targetTask,
+          status: newStatus,
+          completedAt: isNowDone ? new Date().toISOString() : newStatus !== 'done' ? null : targetTask.completedAt,
+          updatedAt: new Date().toISOString(),
+        };
+
+        // Remove target task from array
+        let remainingTasks = state.tasks.filter((t) => t.id !== taskId);
+
+        if (newIndex !== undefined && newIndex >= 0) {
+          const sameStatusTasks = remainingTasks.filter((t) => t.status === newStatus);
+          const otherStatusTasks = remainingTasks.filter((t) => t.status !== newStatus);
+
+          const safeIndex = Math.min(newIndex, sameStatusTasks.length);
+          sameStatusTasks.splice(safeIndex, 0, updatedTask);
+
+          remainingTasks = [...otherStatusTasks, ...sameStatusTasks];
+        } else {
+          remainingTasks.push(updatedTask);
+        }
 
         set({
           history: [...state.history, { tasks: [...state.tasks], description: `Moved task "${targetTask.title}" to ${newStatus}` }],
-          tasks: updatedTasks,
+          tasks: remainingTasks,
         });
       },
 

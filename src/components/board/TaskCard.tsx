@@ -82,9 +82,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         {...listeners}
         className="absolute top-3 right-3 text-gray-300 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-400 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
         aria-label={`Drag handle for task ${task.title}`}
-        title="Drag or use Space/Enter to reorder"
+        title="Drag or press Space then Arrow keys to reorder"
       >
         <GripVertical className="w-4 h-4" />
       </button>

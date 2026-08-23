@@ -73,21 +73,17 @@ export const KanbanBoard: React.FC = () => {
     }
   };
 
-  const handleDragOver = (_event: DragOverEvent) => {
-    // Handled in drag end
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
-    setActiveTask(null);
-
     if (!over) return;
 
     const activeId = active.id as number;
     const overId = over.id;
 
-    const draggedTask = tasks.find((t) => t.id === activeId);
-    if (!draggedTask) return;
+    if (activeId === overId) return;
+
+    const activeTaskItem = tasks.find((t) => t.id === activeId);
+    if (!activeTaskItem) return;
 
     let targetStatus: TaskStatus | undefined;
 
@@ -100,8 +96,42 @@ export const KanbanBoard: React.FC = () => {
       }
     }
 
-    if (targetStatus && draggedTask.status !== targetStatus) {
+    if (targetStatus && activeTaskItem.status !== targetStatus) {
       moveTask(activeId, targetStatus);
+    }
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveTask(null);
+
+    if (!over) return;
+
+    const activeId = active.id as number;
+    const overId = over.id;
+
+    const activeTaskItem = tasks.find((t) => t.id === activeId);
+    if (!activeTaskItem) return;
+
+    let targetStatus: TaskStatus | undefined;
+    let targetIndex: number | undefined;
+
+    if (columns.some((c) => c.id === overId)) {
+      targetStatus = overId as TaskStatus;
+      targetIndex = tasks.filter((t) => t.status === targetStatus).length;
+    } else {
+      const overTask = tasks.find((t) => t.id === overId);
+      if (overTask) {
+        targetStatus = overTask.status;
+        const columnTasks = tasks.filter(
+          (t) => t.sprintId === activeTaskItem.sprintId && t.status === targetStatus
+        );
+        targetIndex = columnTasks.findIndex((t) => t.id === overId);
+      }
+    }
+
+    if (targetStatus) {
+      moveTask(activeId, targetStatus, targetIndex);
     }
   };
 
