@@ -1,0 +1,136 @@
+# OpenAPI 3.0.3 Specification — SprintDesk API Architecture
+
+openapi: 3.0.3
+info:
+  title: SprintDesk API Architecture
+  description: Official OpenAPI 3.0 specification for authentication, mock board endpoints, and notification polling.
+  version: 1.0.0
+
+servers:
+  - url: https://dummyjson.com
+    description: DummyJSON Authentication Server
+  - url: https://jsonplaceholder.typicode.com
+    description: JSONPlaceholder Notification Server
+
+paths:
+  /auth/login:
+    post:
+      summary: User Authentication Login
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: "emilys"
+                password:
+                  type: string
+                  example: "emilyspass"
+                expiresInMins:
+                  type: integer
+                  example: 30
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: "emilys"
+                  email:
+                    type: string
+                    example: "emily.johnson@x.dummyjson.com"
+                  firstName:
+                    type: string
+                    example: "Emily"
+                  lastName:
+                    type: string
+                    example: "Johnson"
+                  gender:
+                    type: string
+                    example: "female"
+                  image:
+                    type: string
+                    example: "https://dummyjson.com/icon/emilys/150"
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+        '400':
+          description: Invalid username or password
+
+  /auth/refresh:
+    post:
+      summary: Silent Token Refresh
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refreshToken
+              properties:
+                refreshToken:
+                  type: string
+                expiresInMins:
+                  type: integer
+                  example: 30
+      responses:
+        '200':
+          description: New Access Token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+        '401':
+          description: Refresh Token expired or invalid
+
+  /posts:
+    get:
+      summary: Poll Team Updates & Notifications
+      operationId: pollNotifications
+      parameters:
+        - name: _limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: Array of polled posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    userId:
+                      type: integer
+                    title:
+                      type: string
+                    body:
+                      type: string
