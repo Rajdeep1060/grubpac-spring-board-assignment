@@ -42,7 +42,19 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   const badge = priorityBadges[task.priority];
   const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'done';
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
+    onClick();
+  };
+
+  const handleCardKeyDown = (e: React.KeyboardEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       onClick();
@@ -53,8 +65,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     <div
       ref={setNodeRef}
       style={style}
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
+      onClick={handleCardClick}
+      onKeyDown={handleCardKeyDown}
       role="button"
       tabIndex={0}
       aria-label={`Task: ${task.title}, Priority: ${task.priority}, Status: ${task.status}`}
@@ -68,10 +80,11 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         type="button"
         {...attributes}
         {...listeners}
-        className="absolute top-3 right-3 text-gray-300 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-400 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-1 focus:ring-brand-500"
+        className="absolute top-3 right-3 text-gray-300 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-400 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
         onClick={(e) => e.stopPropagation()}
-        aria-label={`Drag task ${task.title}`}
-        title="Drag to reorder"
+        onKeyDown={(e) => e.stopPropagation()}
+        aria-label={`Drag handle for task ${task.title}`}
+        title="Drag or use Space/Enter to reorder"
       >
         <GripVertical className="w-4 h-4" />
       </button>
